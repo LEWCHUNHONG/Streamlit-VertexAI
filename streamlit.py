@@ -59,6 +59,9 @@ st.title("🌿🌿Green man☘️☘️")
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
 
+model_selectbox = st.selectbox(
+    'How would you like to be contacted?',
+    ('text-bison@001-Vertex AI', 'text-bison@001-Generative AI'))
 
 st.chat_message("ai").write("Hello!! What can I help you?")
 
@@ -74,7 +77,7 @@ if model_selectbox == 'text-bison@001-Vertex AI':
         #"https://www.epd.gov.hk/epd/sites/default/files/epd/english/environmentinhk/waste/data/files/solid-waste-disposal-quantity-by-category-en-2021.csv"
         data_file = pd.read_csv(read)
         vertex_ai_model = VertexAI(
-            model_name="text-bison@001",
+            model_name=model_name,
             max_output_tokens=256,
             temperature=0.2,
             top_p=0.8,
@@ -104,16 +107,6 @@ elif model_selectbox == 'text-bison@001-Generative AI':
         #response = agent.run(prompt)
         #st_callback = StreamlitCallbackHandler(st.container())
         st.chat_message("ai").write(generation)
-    else :
-        st.chat_message("ai").write("You so good!")
-
-
-
-
-
-if "messages" not in st.session_state.keys():
-    st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
-
 
 
 
