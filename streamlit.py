@@ -56,22 +56,29 @@ st.title("🌿🌿Green man☘️☘️")
 #st_callback = StreamlitCallbackHandler(st.container())
 
 
-if "messages" not in st.session_state.keys():
-    st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
+
 
 model_selectbox = st.selectbox(
-    'How would you like to be contacted?',
+    'Choose a model',
     ('text-bison@001-Vertex AI', 'text-bison@001-Generative AI'))
 
-st.chat_message("ai").write("Hello!! What can I help you?")
-
+st.chat_message("ai").write('What can I help you?')
 
 
 if model_selectbox == 'text-bison@001-Vertex AI':
     model_name = "text-bison@001"
+
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+    
     if prompt := st.chat_input("Talk to Vertex AI on Green man"):
         st.session_state.messages.append({"role": "user", "content": prompt})
-        st.chat_message("user").write(prompt)
+        st.chat_message("user").markdown(prompt)
         llm_chain = LLM_init()
         read = "https://www.wastereduction.gov.hk/sites/default/files/wasteless07.csv"
         #"https://www.epd.gov.hk/epd/sites/default/files/epd/english/environmentinhk/waste/data/files/solid-waste-disposal-quantity-by-category-en-2021.csv"
@@ -86,27 +93,34 @@ if model_selectbox == 'text-bison@001-Vertex AI':
         agent = create_pandas_dataframe_agent(vertex_ai_model, data_file, verbose=True) 
         #with st.chat_message("assistant"):
         response = agent.run(prompt)
+        with st.chat_message("assistant"):
+            st.markdown(response)    
+        st.session_state.messages.append({"role": "ai", "content": response})
         #st_callback = StreamlitCallbackHandler(st.container())
-        st.chat_message("ai").write(response)
+
 
         
 elif model_selectbox == 'text-bison@001-Generative AI':
     generation_model = TextGenerationModel.from_pretrained("text-bison@001")
+
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+    
+    
     if prompt := st.chat_input("Talk to Generative AI on Green man"):
         st.session_state.messages.append({"role": "user", "content": prompt})
-        st.chat_message("user").write(prompt)
-        #read = "https://www.epd.gov.hk/epd/sites/default/files/epd/english/environmentinhk/waste/data/files/solid-waste-disposal-quantity-by-category-en-2021.csv"
-        #data_file = pd.read_csv(read)
+        st.chat_message("user").markdown(prompt)
         generation = generation_model.predict(
-            prompt,
+            prompt=prompt,
             max_output_tokens=256,
             temperature=0,
         ).text
-        #agent = create_pandas_dataframe_agent(generation, data_file, verbose=True) 
-        #with st.chat_message("assistant"):
-        #response = agent.run(prompt)
-        #st_callback = StreamlitCallbackHandler(st.container())
-        st.chat_message("ai").write(generation)
-
+        with st.chat_message("assistant"):
+            st.markdown(generation)
+        st.session_state.messages.append({"role": "ai", "content": generation})
 
 
