@@ -1,17 +1,13 @@
 # project
 
-# project_open_hackathons
-
 pip install -r requirements.txt
 
 export PROJECT_ID='fyp-open-data-hackathon'
-export REGION=u's-central1'
-
+export REGION='us-central1'
 export key_path="fyp-open-data-hackathon-7fccdf48c91c.json"
-
 export GOOGLE_APPLICATION_CREDENTIALS="fyp-open-data-hackathon-7fccdf48c91c.json"
 
 
-import os
 
+import os
 credential_path = "Vertexai/fyp-open-data-hackathon-7fccdf48c91c.json"

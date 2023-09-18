@@ -1,17 +1,22 @@
-import langchain
-from langchain import PromptTemplate, LLMChain
-from langchain.llms import TextGen
+import langchain, os
+from langchain.llms import VertexAI 
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
 
-langchain.debug = True
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
+credential_path = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
 
-template = """Question: {question}
-
-Answer: Let's think step by step."""
-
+template = """Question: {question}"""
 
 prompt = PromptTemplate(template=template, input_variables=["question"])
-llm = TextGen(model_url=model_url)
-llm_chain = LLMChain(prompt=prompt, llm=llm)
-question = "What NFL team won the Super Bowl in the year Justin Bieber was born?"
 
-llm_chain.run(question)
+llm = VertexAI(
+    model_name="text-bison@001",
+    max_output_tokens=256,
+    temperature=0.1,
+    top_p=0.8,
+    top_k=40,)
+
+llm_chain = LLMChain(prompt=prompt, llm=llm)
+question = "Who is Messi?"
+print(llm_chain(question))

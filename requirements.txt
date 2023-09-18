@@ -10,3 +10,5 @@ google-auth==2.23.0
 google-cloud-aiplatform==1.26.1
 google.cloud==0.34.0
 cloudpickle==2.2.1
+unstructured==0.10.15
+altair==4.0
