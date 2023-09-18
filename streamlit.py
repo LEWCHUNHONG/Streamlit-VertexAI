@@ -9,6 +9,9 @@ from langchain.agents import create_pandas_dataframe_agent
 from langchain.callbacks import StreamlitCallbackHandler
 from PIL import Image
 from vertexai.language_models import TextGenerationModel
+from langchain.memory import ConversationBufferMemory
+from langchain.memory.chat_message_histories import StreamlitChatMessageHistory
+
 
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
@@ -57,15 +60,13 @@ if "messages" not in st.session_state.keys():
     st.session_state.messages = [{"role": "assistant", "content": "How may I help you?"}]
 
 
+st.chat_message("ai").write("Hello!! What can I help you?")
 
-model_selectbox = st.selectbox(
-    'How would you like to be contacted?',
-    ('text-bison@001-Vertex AI', 'text-bison@001-Generative AI'))
 
 
 if model_selectbox == 'text-bison@001-Vertex AI':
     model_name = "text-bison@001"
-    if prompt := st.chat_input():
+    if prompt := st.chat_input("Talk to Vertex AI on Green man"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.chat_message("user").write(prompt)
         llm_chain = LLM_init()
@@ -83,13 +84,12 @@ if model_selectbox == 'text-bison@001-Vertex AI':
         #with st.chat_message("assistant"):
         response = agent.run(prompt)
         #st_callback = StreamlitCallbackHandler(st.container())
-        st.write(response)
-    else :
-        st.write("Hello!!!")
+        st.chat_message("ai").write(response)
+
         
 elif model_selectbox == 'text-bison@001-Generative AI':
     generation_model = TextGenerationModel.from_pretrained("text-bison@001")
-    if prompt := st.chat_input():
+    if prompt := st.chat_input("Talk to Generative AI on Green man"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.chat_message("user").write(prompt)
         #read = "https://www.epd.gov.hk/epd/sites/default/files/epd/english/environmentinhk/waste/data/files/solid-waste-disposal-quantity-by-category-en-2021.csv"
@@ -103,9 +103,9 @@ elif model_selectbox == 'text-bison@001-Generative AI':
         #with st.chat_message("assistant"):
         #response = agent.run(prompt)
         #st_callback = StreamlitCallbackHandler(st.container())
-        st.write(generation)
+        st.chat_message("ai").write(generation)
     else :
-        st.write("You so good!")
+        st.chat_message("ai").write("You so good!")
 
 
 
