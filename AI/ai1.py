@@ -3,8 +3,8 @@ from langchain.llms import VertexAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
-credential_path = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ""
+credential_path = ""
 
 template = """Question: {question}"""
 

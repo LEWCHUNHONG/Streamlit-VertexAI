@@ -10,8 +10,8 @@ from langchain.vectorstores import Chroma
 from langchain.agents import initialize_agent, Tool,load_tools, AgentType, Agent
 
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
-credential_path = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ""
+credential_path = ""
 
 embeddings = VertexAIEmbeddings()
 template = """Question: {question}"""

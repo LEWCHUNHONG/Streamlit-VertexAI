@@ -8,11 +8,9 @@ from langchain.agents import create_csv_agent
 from langchain.agents.agent_types import AgentType
 
 
-
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
-credential_path = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
-vertexai.init(project="fyp-open-data-hackathon", location="us-central1")
-
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ""
+credential_path = ""
+vertexai.init(project="", location="")
 
 
 generation_model = TextGenerationModel.from_pretrained("text-bison@001")

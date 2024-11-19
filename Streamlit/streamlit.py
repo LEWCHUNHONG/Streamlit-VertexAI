@@ -14,15 +14,13 @@ from langchain.memory.chat_message_histories import StreamlitChatMessageHistory
 
 
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
-credential_path = "/workspaces/project/fyp-open-data-hackathon-7fccdf48c91c.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ""
+credential_path = ""
 
 
-PROJECT_ID = 'fyp-open-data-hackathon'
-LOCATION = 'us-central1'
+PROJECT_ID = ""
+LOCATION = ""
 vertexai.init(project=PROJECT_ID, location=LOCATION)
-
-
 
 
 
@@ -54,7 +52,6 @@ def LLM_init():
 st.title("🌿🌿Green man☘️☘️")
 
 #st_callback = StreamlitCallbackHandler(st.container())
-
 
 
 

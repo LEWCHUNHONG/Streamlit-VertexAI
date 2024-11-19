@@ -1,6 +1,4 @@
-
 from langchain.document_loaders import UnstructuredURLLoader
-
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import VertexAIEmbeddings
 from langchain.vectorstores import Chroma
