@@ -1,6 +1,9 @@
 # project
 
-pip install -r requirements.txt
+
+1. **Install lib**:
+ ```bash
+  pip install -r requirements.txt
 
 
 
