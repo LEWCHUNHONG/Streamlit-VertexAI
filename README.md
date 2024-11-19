@@ -1,4 +1,4 @@
-# project
+# Streamlit-VertexAI
 
 
 1. **Install lib**:
